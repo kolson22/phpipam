@@ -1778,6 +1778,27 @@ $(document).on("click", ".editSubnet", function() {
 
     return false;
 });
+
+//load swip form
+$(document).on("click", ".swipSubnet", function() {
+    showSpinner();
+    $('.swipMessage').hide();
+    var sectionId   = $(this).attr('data-sectionid');
+    var subnetId    = $(this).attr('data-subnetid');
+    var action         = $(this).attr('data-action');
+    //format posted values
+    var postdata    = "sectionId=" + sectionId + "&subnetId=" + subnetId + "&action=" + action;
+
+    //load edit data
+    $.post("app/admin/subnets/swip.php", postdata, function(data) {
+        $('#popupOverlay div.popup_w700').html(data);
+        showPopup('popup_w700');
+        hideSpinner();
+    }).fail(function(jqxhr, textStatus, errorThrown) { showError(jqxhr.statusText + "<br>Status: " + textStatus + "<br>Error: "+errorThrown); });
+
+    return false;
+});
+
 //resize / split subnet
 $(document).on("click", "#resize, #split, #truncate, .subnet-truncate", function() {
 	showSpinner();
@@ -1822,6 +1843,7 @@ $(document).on("click", "button#subnetTruncateSubmit", function() {
 });
 $(document).on("submit", "#editSubnetDetails", function() {	return false;
 });
+
 //save edit subnet changes
 $(document).on("click", ".editSubnetSubmit, .editSubnetSubmitDelete", function() {
 
@@ -1896,6 +1918,18 @@ $(document).on("click", ".editSubnetSubmit, .editSubnetSubmitDelete", function()
     }).fail(function(jqxhr, textStatus, errorThrown) { showError(jqxhr.statusText + "<br>Status: " + textStatus + "<br>Error: "+errorThrown); });
     return false;
 });
+
+//save edit subnet changes
+$(document).on("click", ".swipSubnetSubmit", function() {
+    showSpinner();
+    const subnet = $('form#swipSubnetDetails input[name=subnet]').val();
+    hideSpinner();
+    $('.swipMessage').html(`Swip was successful - ${subnet}`);
+    const swip = document.querySelector('.swipMessage');
+    document.getElementById('swipBtnSubmit').style.visibility = 'hidden';
+    swip.style.visibility = 'visible';
+});
+
 
 //get subnet info from ripe database
 $(document).on("click", "#get-ripe", function() {

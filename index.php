@@ -178,7 +178,7 @@ else {
 		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
 			<div class="hero-pusher hidden-xs hidden-sm"></div>
 			<div class="hero-unit">
-				<a href="<?php print create_link(null); ?>"><?php print $User->settings->siteTitle . " - update"; ?></a>
+				<a href="<?php print create_link(null); ?>"><?php print $User->settings->siteTitle; ?></a>
 				<p class="muted">
 	            <?php
 	            $title = str_replace(" / ", "<span class='divider'>/</span>", $title);

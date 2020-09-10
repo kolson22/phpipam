@@ -150,6 +150,10 @@ foreach ($slave_subnets as $slave_subnet) {
 	if($slave_subnet_permission == 3) {
 		print "	<td class='actions'>";
 		print "	<div class='btn-group'>";
+
+		$swip_color = $slave_subnet['custom_Swip'] === "1" ? 'success' : 'default';
+		print "		<button class='btn btn btn-xs btn-".$swip_color." swipSubnet'     data-action='swip'   data-subnetid='".$slave_subnet['id']."'  data-sectionid='".$slave_subnet['sectionId']."'><i class='fa fa-success fa-cloud'></i></button>";
+
 		print "		<button class='btn btn btn-xs btn-default editSubnet'     data-action='edit'   data-subnetid='".$slave_subnet['id']."'  data-sectionid='".$slave_subnet['sectionId']."'><i class='fa fa-gray fa-pencil'></i></button>";
 		if ($User->is_subnet_favourite($slave_subnet['id'])){
 			print " <a class='btn btn-xs btn-default btn-info editFavourite favourite-$slave_subnet[id]' href='' data-container='body' rel='tooltip' title='"._('Click to remove from favourites')."' data-subnetId='$slave_subnet[id]' data-action='remove'><i class='fa fa-star'></i></a>";
